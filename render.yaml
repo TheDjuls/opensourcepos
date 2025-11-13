@@ -31,12 +31,9 @@ services:
           name: ospos-db
           property: host
     disk:
-      - name: writable-data
-        mountPath: /app/writable
-        sizeGB: 1
-      - name: uploads-data
-        mountPath: /app/public/uploads
-        sizeGB: 1
+      name: app-data
+      mountPath: /data
+      sizeGB: 2
 
 databases:
   - name: ospos-db
