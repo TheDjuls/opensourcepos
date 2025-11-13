@@ -37,7 +37,7 @@ services:
 
 databases:
   - name: ospos-db
-    plan: starter
+    plan: free
     databaseName: ospos
     user: ospos
 
