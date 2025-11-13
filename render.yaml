@@ -1,0 +1,46 @@
+services:
+  - type: web
+    name: ospos-web
+    env: docker
+    plan: starter
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    autoDeploy: true
+    healthCheckPath: /
+    envVars:
+      - key: CI_ENVIRONMENT
+        value: production
+      - key: FORCE_HTTPS
+        value: false
+      - key: PHP_TIMEZONE
+        value: UTC
+      - key: MYSQL_USERNAME
+        fromDatabase:
+          name: ospos-db
+          property: user
+      - key: MYSQL_PASSWORD
+        fromDatabase:
+          name: ospos-db
+          property: password
+      - key: MYSQL_DB_NAME
+        fromDatabase:
+          name: ospos-db
+          property: database
+      - key: MYSQL_HOST_NAME
+        fromDatabase:
+          name: ospos-db
+          property: host
+    disk:
+      - name: writable-data
+        mountPath: /app/writable
+        sizeGB: 1
+      - name: uploads-data
+        mountPath: /app/public/uploads
+        sizeGB: 1
+
+databases:
+  - name: ospos-db
+    plan: starter
+    databaseName: ospos
+    user: ospos
+
